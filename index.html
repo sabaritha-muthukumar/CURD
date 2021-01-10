@@ -1,0 +1,209 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Html with CRUD
+    </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>
+                <form onsubmit="event.preventDefault();" autocomplete="off">
+                    <div>
+                        <label>Name</label>
+                        <input type="text" name="name" inputmode="name">
+                    </div>
+                    <div>
+                        <label>clg</label>
+                        <input type="text" name="clg" id="clg">
+                    </div>
+                    <div>
+                        <label>dept</label>
+                        <input type="text" name="dept" id="dept">
+                    </div>
+                    <div>
+                        <label>mark</label>
+                        <input type="number" name="mark" id="mark">
+                    </div>
+                    <div class="form-action-buttons">
+                        <input type="submit" value="submit">
+                    </div>
+                </form>
+            </td>
+            <td>
+                <table class="list" id="student">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>clg</th>
+                            <th>dept</th>
+                            <th>mark</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+ -->
+
+ <!DOCTYPE html>
+ <html>
+     <head>
+         <title>Demo</title>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link rel="stylesheet" href="style.css">
+        
+     </head>
+     <body>
+         
+         <div class="container">
+             <div class="tab tab-1">
+                 <table id="table" border="1">
+                     <tr>
+                         <th>Name</th>
+                         <th>clg</th>
+                         <th>dept</th>
+                         <th>mark</th>
+                     </tr>
+                     <tr>
+                         <td>xxx</td>
+                         <td>siet</td>
+                         <td>cse</td>
+                         <td>45</td>
+                     </tr>
+                     <tr>
+                            <td>xyxz</td>
+                            <td>cit</td>
+                            <td>ece</td>
+                            <td>89</td>
+                     </tr>
+                     <tr>
+                            <td>zzzz</td>
+                            <td>psg</td>
+                            <td>eee</td>
+                            <td>79</td>
+                     </tr>
+                 </table>
+             </div>
+             <div class="tab tab-2">
+                 Name :<input type="text" name="name" id="name">
+                 Clg :<input type="text" name="clg" id="clg">
+                 Dept:<input type="text" name="dept" id="dept">
+                 mark :<input type="number" name="mark" id="mark">
+                 
+                 <button onclick="addHtmlTableRow();">Add</button>
+                 <button onclick="editHtmlTbleSelectedRow();">Edit</button>
+                 <button onclick="removeSelectedRow();">Remove</button>
+             </div>
+         </div>
+         
+         <script>
+             
+             var rIndex,
+                 table = document.getElementById("table");
+             function checkEmptyInput()
+             {
+                 var isEmpty = false,
+                     name = document.getElementById("name").value,
+                     clg = document.getElementById("clg").value,
+                     dept = document.getElementById("dept").value;
+                     mark = document.getElementById("mark").value;
+                 if(name === ""){
+                     alert("name is empty");
+                     isEmpty = true;
+                 }
+                 else if(clg === ""){
+                     alert("clg is empty");
+                     isEmpty = true;
+                 }
+                 else if(dept === ""){
+                     alert("dept is empty");
+                     isEmpty = true;
+                 }
+                 else if(mark === ""){
+                     alert("mark is empty");
+                     isEmpty = true;
+                 }
+                 return isEmpty;
+             }
+             function addHtmlTableRow()
+             {
+                 if(!checkEmptyInput()){
+                 var newRow = table.insertRow(table.length),
+                     cell1 = newRow.insertCell(0),
+                     cell2 = newRow.insertCell(1),
+                     cell3 = newRow.insertCell(2),
+                     cell4 = newRow.insertCell(3),
+                     name = document.getElementById("name").value,
+                     clg = document.getElementById("clg").value,
+                     dept = document.getElementById("dept").value;
+                     mark = document.getElementById("mark").value;
+             
+                 cell1.innerHTML = name;
+                 cell2.innerHTML = clg;
+                 cell3.innerHTML = dept;
+                 cell4.innerHTML= mark;
+                 selectedRowToInput();
+             }
+            }
+             function selectedRowToInput()
+             {
+                 for(var i = 1; i < table.rows.length; i++)
+                 {
+                     table.rows[i].onclick = function()
+                     {
+                       rIndex = this.rowIndex;
+                       document.getElementById("name").value = this.cells[0].innerHTML;
+                       document.getElementById("clg").value = this.cells[1].innerHTML;
+                       document.getElementById("dept").value = this.cells[2].innerHTML;
+                       document.getElementById("mark").value = this.cells[3].innerHTML;
+                     };
+                 }
+             }
+             selectedRowToInput();
+             
+             function editHtmlTbleSelectedRow()
+             {
+                 var name = document.getElementById("name").value,
+                     clg = document.getElementById("clg").value,
+                     dept = document.getElementById("dept").value,
+                     mark = document.getElementById("mark").value;
+                if(!checkEmptyInput()){
+                 table.rows[rIndex].cells[0].innerHTML = name;
+                 table.rows[rIndex].cells[1].innerHTML = clg;
+                 table.rows[rIndex].cells[2].innerHTML = dept;
+                 table.rows[rIndex].cells[3].innerHTML = mark;
+               }
+             }
+             
+             function removeSelectedRow()
+             {
+                 table.deleteRow(rIndex);
+                 document.getElementById("name").value = "";
+                 document.getElementById("clg").value = "";
+                 document.getElementById("dept").value = "";
+                 document.getElementById("mark").value = "";
+             }
+         </script>
+         
+     </body>
+ </html>
+ 
+ 
